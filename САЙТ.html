@@ -1,0 +1,2043 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ИИ + ЕГЭ — подготовка к сочинению</title>
+
+    <meta
+        name="description"
+        content="Практический гид по использованию искусственного интеллекта при подготовке к сочинению ЕГЭ по русскому языку."
+    >
+
+    <style>
+        :root {
+            --paper: #f5f0e7;
+            --paper-light: #fbf8f2;
+            --paper-dark: #e9e0d3;
+            --graphite: #292724;
+            --muted: #706b63;
+            --terracotta: #a6533d;
+            --terracotta-dark: #86402f;
+            --line: #d8cec0;
+            --white: #fffdf9;
+            --shadow: 0 14px 35px rgba(54, 42, 31, 0.08);
+            --radius: 18px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            color: var(--graphite);
+            background:
+                radial-gradient(circle at 15% 10%, rgba(166, 83, 61, 0.045), transparent 28%),
+                radial-gradient(circle at 85% 80%, rgba(80, 65, 50, 0.035), transparent 30%),
+                var(--paper);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.65;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: Georgia, "Times New Roman", serif;
+            line-height: 1.15;
+            font-weight: 500;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .container {
+            width: min(1120px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        /* NAVIGATION */
+
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(245, 240, 231, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(216, 206, 192, 0.8);
+        }
+
+        .nav-inner {
+            min-height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            text-decoration: none;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 21px;
+            letter-spacing: -0.02em;
+        }
+
+        .brand span {
+            color: var(--terracotta);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 22px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
+
+        .nav-links::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-size: 13px;
+            color: var(--muted);
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--terracotta);
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 92px 0 75px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--terracotta);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 22px;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 26px;
+            height: 1px;
+            background: var(--terracotta);
+        }
+
+        .hero h1 {
+            font-size: clamp(54px, 8vw, 94px);
+            margin: 0 0 22px;
+            letter-spacing: -0.065em;
+        }
+
+        .hero h1 span {
+            color: var(--terracotta);
+        }
+
+        .hero-subtitle {
+            max-width: 620px;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(20px, 2.5vw, 27px);
+            line-height: 1.4;
+            margin: 0 0 25px;
+        }
+
+        .hero-description {
+            max-width: 610px;
+            color: var(--muted);
+            font-size: 16px;
+        }
+
+        .hero-card {
+            position: relative;
+            background: var(--paper-light);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 34px;
+            box-shadow: var(--shadow);
+            transform: rotate(1deg);
+        }
+
+        .hero-card::before {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: 18px;
+            right: 18px;
+            height: 8px;
+            border-top: 1px solid var(--line);
+            opacity: 0.6;
+        }
+
+        .hero-card-label {
+            color: var(--terracotta);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .hero-card h2 {
+            font-size: 31px;
+            margin: 13px 0 20px;
+        }
+
+        .hero-card p {
+            color: var(--muted);
+            margin-bottom: 25px;
+        }
+
+        .formula {
+            border-top: 1px solid var(--line);
+            padding-top: 20px;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .formula strong {
+            color: var(--terracotta);
+        }
+
+        /* SECTIONS */
+
+        section {
+            padding: 78px 0;
+            scroll-margin-top: 70px;
+        }
+
+        .section-head {
+            display: grid;
+            grid-template-columns: 0.4fr 1fr;
+            gap: 50px;
+            margin-bottom: 45px;
+        }
+
+        .section-number {
+            color: var(--terracotta);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 17px;
+        }
+
+        .section-title {
+            margin: 0;
+            font-size: clamp(34px, 5vw, 55px);
+            letter-spacing: -0.04em;
+        }
+
+        .section-intro {
+            max-width: 720px;
+            color: var(--muted);
+            margin-top: 17px;
+            font-size: 16px;
+        }
+
+        /* INFO CARDS */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .card {
+            background: var(--paper-light);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 27px;
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin: 0 0 12px;
+        }
+
+        .card p {
+            color: var(--muted);
+            margin: 0;
+        }
+
+        .card-number {
+            color: var(--terracotta);
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        /* IMPORTANT NOTE */
+
+        .note {
+            border-left: 3px solid var(--terracotta);
+            background: rgba(255, 253, 249, 0.55);
+            padding: 20px 25px;
+            margin: 30px 0;
+        }
+
+        .note strong {
+            font-family: Georgia, "Times New Roman", serif;
+        }
+
+        /* EXAM STRUCTURE */
+
+        .exam-box {
+            background: var(--graphite);
+            color: var(--paper-light);
+            border-radius: 22px;
+            padding: 38px;
+            box-shadow: var(--shadow);
+        }
+
+        .exam-box .small-label {
+            color: #c9b6a7;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .exam-box h3 {
+            font-size: 34px;
+            margin: 12px 0 30px;
+        }
+
+        .exam-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .exam-step {
+            padding: 19px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 13px;
+        }
+
+        .exam-step span {
+            display: block;
+            color: #c9b6a7;
+            font-size: 11px;
+            margin-bottom: 9px;
+        }
+
+        .exam-step strong {
+            font-family: Georgia, "Times New Roman", serif;
+            font-weight: 500;
+        }
+
+        /* ALGORITHM */
+
+        .algorithm {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .algorithm-item {
+            background: var(--paper-light);
+            border: 1px solid var(--line);
+            padding: 14px 17px;
+            border-radius: 100px;
+            font-family: Georgia, "Times New Roman", serif;
+        }
+
+        .algorithm-arrow {
+            color: var(--terracotta);
+            font-size: 20px;
+        }
+
+        /* STEPS */
+
+        .stage {
+            display: grid;
+            grid-template-columns: 90px 1fr;
+            gap: 30px;
+            padding: 42px 0;
+            border-top: 1px solid var(--line);
+        }
+
+        .stage:last-child {
+            border-bottom: 1px solid var(--line);
+        }
+
+        .stage-number {
+            font-family: Georgia, "Times New Roman", serif;
+            color: var(--terracotta);
+            font-size: 22px;
+        }
+
+        .stage-content h3 {
+            font-size: 31px;
+            margin: 0 0 10px;
+        }
+
+        .stage-description {
+            color: var(--muted);
+            max-width: 780px;
+            margin: 0 0 25px;
+        }
+
+        .stage-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .prompt-box,
+        .check-box {
+            border-radius: 15px;
+            padding: 24px;
+        }
+
+        .prompt-box {
+            background: var(--paper-light);
+            border: 1px solid var(--line);
+        }
+
+        .check-box {
+            background: rgba(166, 83, 61, 0.055);
+            border: 1px solid rgba(166, 83, 61, 0.16);
+        }
+
+        .box-label {
+            color: var(--terracotta);
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            margin-bottom: 13px;
+        }
+
+        .prompt {
+            font-family: Georgia, "Times New Roman", serif;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        .copy-btn {
+            margin-top: 17px;
+            border: 1px solid var(--line);
+            background: transparent;
+            color: var(--graphite);
+            border-radius: 8px;
+            padding: 9px 13px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--graphite);
+            color: var(--paper-light);
+            border-color: var(--graphite);
+        }
+
+        .check-list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .check-list li {
+            position: relative;
+            padding-left: 23px;
+            margin: 8px 0;
+            color: var(--muted);
+        }
+
+        .check-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--terracotta);
+            font-weight: 700;
+        }
+
+        /* CRITERIA */
+
+        .criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .criterion {
+            background: var(--paper-light);
+            border: 1px solid var(--line);
+            border-radius: 15px;
+            padding: 22px;
+            display: flex;
+            gap: 18px;
+        }
+
+        .criterion-code {
+            min-width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: var(--graphite);
+            color: var(--paper-light);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 13px;
+        }
+
+        .criterion strong {
+            display: block;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .criterion p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .score-note {
+            margin-top: 22px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* ERRORS */
+
+        .errors {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .error-card {
+            padding: 27px;
+            border: 1px solid var(--line);
+            border-radius: 17px;
+            background: var(--paper-light);
+        }
+
+        .error-card h3 {
+            margin: 0 0 10px;
+            font-size: 23px;
+        }
+
+        .error-card p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .error-icon {
+            font-family: Georgia, "Times New Roman", serif;
+            color: var(--terracotta);
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        /* RULES */
+
+        .rules {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .rule {
+            min-height: 170px;
+            border-top: 2px solid var(--terracotta);
+            padding: 18px 8px 10px;
+        }
+
+        .rule-number {
+            font-family: Georgia, "Times New Roman", serif;
+            color: var(--terracotta);
+            font-size: 13px;
+        }
+
+        .rule strong {
+            display: block;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 19px;
+            margin-top: 10px;
+        }
+
+        .rule p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* FINAL */
+
+        .final {
+            padding: 90px 0 100px;
+        }
+
+        .final-box {
+            text-align: center;
+            background: var(--paper-dark);
+            border: 1px solid var(--line);
+            border-radius: 25px;
+            padding: 65px 30px;
+        }
+
+        .final-box h2 {
+            font-size: clamp(35px, 5vw, 58px);
+            margin: 0 0 17px;
+            letter-spacing: -0.04em;
+        }
+
+        .final-box p {
+            max-width: 650px;
+            margin: 0 auto;
+            color: var(--muted);
+        }
+
+        .final-formula {
+            margin-top: 32px;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(18px, 3vw, 26px);
+        }
+
+        .final-formula span {
+            color: var(--terracotta);
+        }
+
+        /* FOOTER */
+
+        footer {
+            border-top: 1px solid var(--line);
+            padding: 30px 0;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .fipi-link {
+            color: var(--terracotta);
+            text-decoration: none;
+        }
+
+        .fipi-link:hover {
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .section-head {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .cards,
+            .errors {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .exam-steps {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .rules {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 680px) {
+            .container {
+                width: min(100% - 28px, 1120px);
+            }
+
+            .nav-inner {
+                min-height: 58px;
+            }
+
+            .brand {
+                font-size: 18px;
+            }
+
+            .nav-links {
+                gap: 14px;
+            }
+
+            .hero {
+                padding: 62px 0 55px;
+            }
+
+            section {
+                padding: 58px 0;
+            }
+
+            .cards,
+            .errors,
+            .criteria-grid,
+            .stage-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .exam-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .stage {
+                grid-template-columns: 50px 1fr;
+                gap: 15px;
+            }
+
+            .stage-content h3 {
+                font-size: 26px;
+            }
+
+            .rules {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero-card {
+                transform: none;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
+<nav class="nav">
+    <div class="container nav-inner">
+
+        <a href="#top" class="brand">
+            ИИ <span>+</span> ЕГЭ
+        </a>
+
+        <div class="nav-links">
+            <a href="#about">О проекте</a>
+            <a href="#format">Формат</a>
+            <a href="#algorithm">Алгоритм</a>
+            <a href="#stages">Этапы</a>
+            <a href="#criteria">Критерии</a>
+            <a href="#rules">Правила</a>
+        </div>
+
+    </div>
+</nav>
+
+
+<main id="top">
+
+<!-- =========================
+     HERO
+========================= -->
+
+<header class="hero">
+    <div class="container hero-grid">
+
+        <div>
+            <div class="eyebrow">
+                Практический гид
+            </div>
+
+            <h1>
+                ИИ <span>+</span> ЕГЭ
+            </h1>
+
+            <p class="hero-subtitle">
+                Как использовать искусственный интеллект
+                при подготовке к сочинению по русскому языку
+            </p>
+
+            <p class="hero-description">
+                Не готовое сочинение вместо тебя, а инструмент,
+                который помогает анализировать текст, проверять
+                рассуждения и находить собственные ошибки.
+            </p>
+        </div>
+
+
+        <div class="hero-card">
+
+            <div class="hero-card-label">
+                Главное правило
+            </div>
+
+            <h2>
+                ИИ — помощник,<br>
+                а не автор.
+            </h2>
+
+            <p>
+                Даже хороший ответ нейросети нужно проверить:
+                сопоставить его с исходным текстом и самостоятельно
+                принять решение.
+            </p>
+
+            <div class="formula">
+                Текст → запрос к ИИ → ответ → <strong>проверка</strong> → своё решение
+            </div>
+
+        </div>
+
+    </div>
+</header>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section id="about">
+    <div class="container">
+
+        <div class="section-head">
+            <div class="section-number">01 / О ПРОЕКТЕ</div>
+
+            <div>
+                <h2 class="section-title">
+                    Зачем нужен этот сайт?
+                </h2>
+
+                <p class="section-intro">
+                    Искусственный интеллект может помочь при подготовке
+                    к сочинению, но его ответ не становится автоматически
+                    правильным. Поэтому главное — научиться использовать ИИ
+                    не для копирования готового текста, а для анализа
+                    и проверки собственных решений.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="cards">
+
+            <article class="card">
+                <div class="card-number">01</div>
+
+                <h3>Понять</h3>
+
+                <p>
+                    Разобраться, что именно требуется в задании 27
+                    и какую роль играет каждый элемент сочинения.
+                </p>
+            </article>
+
+
+            <article class="card">
+                <div class="card-number">02</div>
+
+                <h3>Проверить</h3>
+
+                <p>
+                    Использовать ИИ для поиска слабых мест,
+                    но обязательно сверять его выводы с исходным текстом.
+                </p>
+            </article>
+
+
+            <article class="card">
+                <div class="card-number">03</div>
+
+                <h3>Научиться</h3>
+
+                <p>
+                    Постепенно замечать собственные ошибки
+                    и принимать решения без постоянной опоры на нейросеть.
+                </p>
+            </article>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- =========================
+     FORMAT
+========================= -->
+
+<section id="format">
+    <div class="container">
+
+        <div class="section-head">
+            <div class="section-number">02 / ФОРМАТ</div>
+
+            <div>
+                <h2 class="section-title">
+                    Как устроено задание 27
+                </h2>
+
+                <p class="section-intro">
+                    В актуальном формате сочинения важно не просто написать
+                    связный текст. Нужно последовательно выполнить несколько
+                    содержательных требований.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="exam-box">
+
+            <div class="small-label">
+                Задание 27 · ЕГЭ по русскому языку 2026
+            </div>
+
+            <h3>
+                Что должно появиться в сочинении
+            </h3>
+
+            <div class="exam-steps">
+
+                <div class="exam-step">
+                    <span>01</span>
+                    <strong>
+                        Позиция автора
+                    </strong>
+                </div>
+
+                <div class="exam-step">
+                    <span>02</span>
+                    <strong>
+                        Два примера-иллюстрации
+                    </strong>
+                </div>
+
+                <div class="exam-step">
+                    <span>03</span>
+                    <strong>
+                        Пояснения и смысловая связь
+                    </strong>
+                </div>
+
+                <div class="exam-step">
+                    <span>04</span>
+                    <strong>
+                        Своё отношение и пример-аргумент
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="note">
+
+            <strong>Важно для 2026 года.</strong>
+
+            В формулировку задания внесён дополнительный признак
+            примера-аргумента: он не должен просто повторять
+            авторские суждения. Поэтому собственное обоснование
+            нужно связывать с проблемой, но делать самостоятельным.
+            
+        </div>
+
+
+        <div class="cards">
+
+            <article class="card">
+                <div class="card-number">150+</div>
+
+                <h3>Объём</h3>
+
+                <p>
+                    Нормы оценивания рассчитаны на сочинение
+                    объёмом 150 слов или более.
+                </p>
+            </article>
+
+
+            <article class="card">
+                <div class="card-number">ТЕКСТ</div>
+
+                <h3>Опора</h3>
+
+                <p>
+                    Рассуждение должно опираться на прочитанный
+                    исходный текст.
+                </p>
+            </article>
+
+
+            <article class="card">
+                <div class="card-number">22</div>
+
+                <h3>Максимум</h3>
+
+                <p>
+                    За задание 27 можно получить до 22 баллов
+                    по критериям К1–К10.
+                </p>
+            </article>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- =========================
+     ALGORITHM
+========================= -->
+
+<section id="algorithm">
+    <div class="container">
+
+        <div class="section-head">
+            <div class="section-number">03 / АЛГОРИТМ</div>
+
+            <div>
+                <h2 class="section-title">
+                    Работай не «с ИИ», а по алгоритму
+                </h2>
+
+                <p class="section-intro">
+                    Нейросеть полезна тогда, когда у неё есть конкретная
+                    задача. Чем точнее запрос и чем внимательнее проверка,
+                    тем полезнее результат.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="algorithm">
+
+            <div class="algorithm-item">Прочитать текст</div>
+            <div class="algorithm-arrow">→</div>
+
+            <div class="algorithm-item">Понять проблему</div>
+            <div class="algorithm-arrow">→</div>
+
+            <div class="algorithm-item">Позиция автора</div>
+            <div class="algorithm-arrow">→</div>
+
+            <div class="algorithm-item">Примеры</div>
+            <div class="algorithm-arrow">→</div>
+
+            <div class="algorithm-item">Пояснение</div>
+            <div class="algorithm-arrow">→</div>
+
+            <div class="algorithm-item">Связь</div>
+            <div class="algorithm-arrow">→</div>
+
+            <div class="algorithm-item">Своё отношение</div>
+            <div class="algorithm-arrow">→</div>
+
+            <div class="algorithm-item">Аргумент</div>
+            <div class="algorithm-arrow">→</div>
+
+            <div class="algorithm-item">Проверка</div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- =========================
+     STAGES
+========================= -->
+
+<section id="stages">
+    <div class="container">
+
+        <div class="section-head">
+            <div class="section-number">04 / ЭТАПЫ</div>
+
+            <div>
+                <h2 class="section-title">
+                    Пять рабочих этапов
+                </h2>
+
+                <p class="section-intro">
+                    Каждый этап содержит пример запроса к ИИ
+                    и отдельную проверку. Это принципиально:
+                    ответ нейросети не используется автоматически.
+                </p>
+            </div>
+        </div>
+
+
+        <!-- STAGE 1 -->
+
+        <article class="stage">
+
+            <div class="stage-number">01</div>
+
+            <div class="stage-content">
+
+                <h3>
+                    Понять проблему и позицию автора
+                </h3>
+
+                <p class="stage-description">
+                    В задании 27 проблема указана в формулировке.
+                    Поэтому задача ученика — правильно понять её
+                    и определить, как именно автор отвечает на этот
+                    проблемный вопрос.
+                </p>
+
+
+                <div class="stage-grid">
+
+                    <div class="prompt-box">
+
+                        <div class="box-label">
+                            Запрос к ИИ
+                        </div>
+
+                        <div class="prompt">
+                            Проанализируй исходный текст и проблемный
+                            вопрос из задания. Объясни простыми словами,
+                            о каком вопросе идёт речь и как автор отвечает
+                            на него. Опирайся только на исходный текст.
+                            Не добавляй информацию, которой в тексте нет.
+                        </div>
+
+                        <button
+                            class="copy-btn"
+                            onclick="copyPrompt(this)"
+                        >
+                            Скопировать запрос
+                        </button>
+
+                    </div>
+
+
+                    <div class="check-box">
+
+                        <div class="box-label">
+                            Проверка
+                        </div>
+
+                        <ul class="check-list">
+
+                            <li>
+                                Я сам понимаю, о чём спрашивается?
+                            </li>
+
+                            <li>
+                                Ответ ИИ подтверждается текстом?
+                            </li>
+
+                            <li>
+                                ИИ не приписал автору чужую мысль?
+                            </li>
+
+                            <li>
+                                Позиция действительно отвечает на проблему?
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- STAGE 2 -->
+
+        <article class="stage">
+
+            <div class="stage-number">02</div>
+
+            <div class="stage-content">
+
+                <h3>
+                    Найти два примера-иллюстрации
+                </h3>
+
+                <p class="stage-description">
+                    Для комментария нужны два примера из исходного текста,
+                    которые важны для понимания позиции автора. Важно не
+                    просто назвать фрагменты, а объяснить, зачем каждый
+                    из них нужен.
+                </p>
+
+
+                <div class="stage-grid">
+
+                    <div class="prompt-box">
+
+                        <div class="box-label">
+                            Запрос к ИИ
+                        </div>
+
+                        <div class="prompt">
+                            Найди в тексте два примера-иллюстрации,
+                            которые помогают раскрыть проблему
+                            «...». Для каждого примера объясни,
+                            какую мысль он помогает понять.
+                            Используй только информацию из исходного текста.
+                        </div>
+
+                        <button
+                            class="copy-btn"
+                            onclick="copyPrompt(this)"
+                        >
+                            Скопировать запрос
+                        </button>
+
+                    </div>
+
+
+                    <div class="check-box">
+
+                        <div class="box-label">
+                            Проверка
+                        </div>
+
+                        <ul class="check-list">
+
+                            <li>
+                                Пример действительно есть в тексте?
+                            </li>
+
+                            <li>
+                                Я могу объяснить, что в нём происходит?
+                            </li>
+
+                            <li>
+                                Понятно, зачем автор показывает этот фрагмент?
+                            </li>
+
+                            <li>
+                                Примеры связаны с проблемой?
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- STAGE 3 -->
+
+        <article class="stage">
+
+            <div class="stage-number">03</div>
+
+            <div class="stage-content">
+
+                <h3>
+                    Пояснить примеры и их смысловую связь
+                </h3>
+
+                <p class="stage-description">
+                    После выбора примеров нужно объяснить каждый из них
+                    и показать, как они связаны между собой. Связь —
+                    это не повторение двух примеров, а объяснение
+                    их общей логики.
+                </p>
+
+
+                <div class="stage-grid">
+
+                    <div class="prompt-box">
+
+                        <div class="box-label">
+                            Запрос к ИИ
+                        </div>
+
+                        <div class="prompt">
+                            Объясни смысловую связь между двумя
+                            выбранными примерами. Не пересказывай
+                            их повторно. Покажи, какую общую мысль
+                            они помогают раскрыть и как второй пример
+                            связан с первым.
+                        </div>
+
+                        <button
+                            class="copy-btn"
+                            onclick="copyPrompt(this)"
+                        >
+                            Скопировать запрос
+                        </button>
+
+                    </div>
+
+
+                    <div class="check-box">
+
+                        <div class="box-label">
+                            Проверка
+                        </div>
+
+                        <ul class="check-list">
+
+                            <li>
+                                Связь подтверждается текстом?
+                            </li>
+
+                            <li>
+                                Это действительно связь, а не пересказ?
+                            </li>
+
+                            <li>
+                                Понятно, зачем нужны оба примера?
+                            </li>
+
+                            <li>
+                                Связь помогает раскрыть проблему?
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- STAGE 4 -->
+
+        <article class="stage">
+
+            <div class="stage-number">04</div>
+
+            <div class="stage-content">
+
+                <h3>
+                    Сформулировать своё отношение
+                </h3>
+
+                <p class="stage-description">
+                    Здесь появляется собственная позиция ученика:
+                    нужно сформулировать отношение к позиции автора
+                    и обосновать его примером-аргументом. Такой пример
+                    должен быть самостоятельным и не должен просто
+                    повторять содержание исходного текста.
+                </p>
+
+
+                <div class="stage-grid">
+
+                    <div class="prompt-box">
+
+                        <div class="box-label">
+                            Запрос к ИИ
+                        </div>
+
+                        <div class="prompt">
+                            Помоги проверить моё обоснование отношения
+                            к позиции автора. Не придумывай факты.
+                            Проверь, связано ли моё обоснование
+                            с позицией автора и является ли пример-аргумент
+                            самостоятельным, а не повторением авторского
+                            суждения. Укажи слабые места и объясни,
+                            как их улучшить.
+                        </div>
+
+                        <button
+                            class="copy-btn"
+                            onclick="copyPrompt(this)"
+                        >
+                            Скопировать запрос
+                        </button>
+
+                    </div>
+
+
+                    <div class="check-box">
+
+                        <div class="box-label">
+                            Проверка
+                        </div>
+
+                        <ul class="check-list">
+
+                            <li>
+                                Я ясно выразил своё отношение?
+                            </li>
+
+                            <li>
+                                Моё обоснование связано с проблемой?
+                            </li>
+
+                            <li>
+                                Пример действительно подтверждает мою мысль?
+                            </li>
+
+                            <li>
+                                Я не повторяю просто авторское суждение?
+                            </li>
+
+                            <li>
+                                Факты в примере достоверны?
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- STAGE 5 -->
+
+        <article class="stage">
+
+            <div class="stage-number">05</div>
+
+            <div class="stage-content">
+
+                <h3>
+                    Проверить готовое сочинение
+                </h3>
+
+                <p class="stage-description">
+                    ИИ можно использовать как дополнительный инструмент
+                    проверки. Но исправлять текст нужно осознанно:
+                    сначала понять замечание, затем самостоятельно
+                    решить, действительно ли оно верно.
+                </p>
+
+
+                <div class="stage-grid">
+
+                    <div class="prompt-box">
+
+                        <div class="box-label">
+                            Запрос к ИИ
+                        </div>
+
+                        <div class="prompt">
+                            Проверь моё сочинение. Не переписывай его
+                            полностью. Найди места, которые могут содержать
+                            ошибки или быть недостаточно убедительными.
+                            Отдельно укажи орфографические, пунктуационные,
+                            грамматические и речевые ошибки. Для каждого
+                            замечания объясни проблему и предложи вариант
+                            исправления. Также проверь, выполнены ли
+                            содержательные требования задания 27.
+                        </div>
+
+                        <button
+                            class="copy-btn"
+                            onclick="copyPrompt(this)"
+                        >
+                            Скопировать запрос
+                        </button>
+
+                    </div>
+
+
+                    <div class="check-box">
+
+                        <div class="box-label">
+                            Проверка
+                        </div>
+
+                        <ul class="check-list">
+
+                            <li>
+                                Я сам проверил каждое замечание?
+                            </li>
+
+                            <li>
+                                Все исправления действительно нужны?
+                            </li>
+
+                            <li>
+                                Сохранился мой собственный смысл?
+                            </li>
+
+                            <li>
+                                Я не заменил своё сочинение текстом ИИ?
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    </div>
+</section>
+
+
+<!-- =========================
+     CRITERIA
+========================= -->
+
+<section id="criteria">
+    <div class="container">
+
+        <div class="section-head">
+            <div class="section-number">05 / КРИТЕРИИ</div>
+
+            <div>
+                <h2 class="section-title">
+                    Проверка перед сдачей
+                </h2>
+
+                <p class="section-intro">
+                    Перед тем как считать сочинение готовым,
+                    полезно пройтись по основным группам критериев.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="criteria-grid">
+
+            <article class="criterion">
+                <div class="criterion-code">К1</div>
+                <div>
+                    <strong>Позиция автора</strong>
+                    <p>
+                        Позиция автора сформулирована по проблеме
+                        и соответствует содержанию текста.
+                    </p>
+                </div>
+            </article>
+
+
+            <article class="criterion">
+                <div class="criterion-code">К2</div>
+                <div>
+                    <strong>Комментарий</strong>
+                    <p>
+                        Есть два примера-иллюстрации,
+                        их пояснение и смысловая связь.
+                    </p>
+                </div>
+            </article>
+
+
+            <article class="criterion">
+                <div class="criterion-code">К3</div>
+                <div>
+                    <strong>Своё отношение</strong>
+                    <p>
+                        Собственное отношение к позиции автора
+                        сформулировано и обосновано.
+                    </p>
+                </div>
+            </article>
+
+
+            <article class="criterion">
+                <div class="criterion-code">К4</div>
+                <div>
+                    <strong>Фактическая точность</strong>
+                    <p>
+                        В работе нет существенных фактических ошибок.
+                    </p>
+                </div>
+            </article>
+
+
+            <article class="criterion">
+                <div class="criterion-code">К5</div>
+                <div>
+                    <strong>Логика</strong>
+                    <p>
+                        Мысли связаны между собой,
+                        нет существенных логических нарушений.
+                    </p>
+                </div>
+            </article>
+
+
+            <article class="criterion">
+                <div class="criterion-code">К6</div>
+                <div>
+                    <strong>Этические нормы</strong>
+                    <p>
+                        Работа соответствует требованиям
+                        к этической стороне содержания.
+                    </p>
+                </div>
+            </article>
+
+
+            <article class="criterion">
+                <div class="criterion-code">К7</div>
+                <div>
+                    <strong>Орфография</strong>
+                    <p>
+                        Проверены написания слов
+                        и орфографические нормы.
+                    </p>
+                </div>
+            </article>
+
+
+            <article class="criterion">
+                <div class="criterion-code">К8</div>
+                <div>
+                    <strong>Пунктуация</strong>
+                    <p>
+                        Проверены знаки препинания
+                        и синтаксическая структура предложений.
+                    </p>
+                </div>
+            </article>
+
+
+            <article class="criterion">
+                <div class="criterion-code">К9</div>
+                <div>
+                    <strong>Грамматика</strong>
+                    <p>
+                        Проверены формы слов,
+                        согласование и управление.
+                    </p>
+                </div>
+            </article>
+
+
+            <article class="criterion">
+                <div class="criterion-code">К10</div>
+                <div>
+                    <strong>Речь</strong>
+                    <p>
+                        Проверены точность, уместность
+                        и качество формулировок.
+                    </p>
+                </div>
+            </article>
+
+        </div>
+
+
+        <p class="score-note">
+            По официальным материалам ФИПИ максимальное количество
+            баллов за задание 27 по критериям К1–К10 — 22.
+        </p>
+
+    </div>
+</section>
+
+
+<!-- =========================
+     AI ERRORS
+========================= -->
+
+<section id="errors">
+    <div class="container">
+
+        <div class="section-head">
+            <div class="section-number">06 / ОШИБКИ ИИ</div>
+
+            <div>
+                <h2 class="section-title">
+                    Где нейросеть может ошибиться
+                </h2>
+
+                <p class="section-intro">
+                    Даже подробный и уверенный ответ ИИ может оказаться
+                    неверным. Поэтому любой важный вывод нужно сопоставлять
+                    с исходным текстом.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="errors">
+
+            <article class="error-card">
+
+                <div class="error-icon">01</div>
+
+                <h3>
+                    Придуманная мысль
+                </h3>
+
+                <p>
+                    ИИ может приписать автору идею,
+                    которой в исходном тексте нет.
+                </p>
+
+            </article>
+
+
+            <article class="error-card">
+
+                <div class="error-icon">02</div>
+
+                <h3>
+                    Неверная связь
+                </h3>
+
+                <p>
+                    Нейросеть может назвать связь между примерами,
+                    которая не подтверждается содержанием текста.
+                </p>
+
+            </article>
+
+
+            <article class="error-card">
+
+                <div class="error-icon">03</div>
+
+                <h3>
+                    Слишком уверенная правка
+                </h3>
+
+                <p>
+                    ИИ может предложить изменение, которое меняет
+                    первоначальный смысл твоей мысли.
+                </p>
+
+            </article>
+
+
+            <article class="error-card">
+
+                <div class="error-icon">04</div>
+
+                <h3>
+                    Фактическая ошибка
+                </h3>
+
+                <p>
+                    При работе с примерами ИИ способен перепутать
+                    факты, имена или обстоятельства.
+                </p>
+
+            </article>
+
+
+            <article class="error-card">
+
+                <div class="error-icon">05</div>
+
+                <h3>
+                    Шаблонный ответ
+                </h3>
+
+                <p>
+                    Красивое универсальное объяснение не обязательно
+                    подходит именно к твоему тексту.
+                </p>
+
+            </article>
+
+
+            <article class="error-card">
+
+                <div class="error-icon">06</div>
+
+                <h3>
+                    Готовое сочинение
+                </h3>
+
+                <p>
+                    Полностью готовый текст может выглядеть убедительно,
+                    но не помогает научиться самостоятельно рассуждать.
+                </p>
+
+            </article>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- =========================
+     RULES
+========================= -->
+
+<section id="rules">
+    <div class="container">
+
+        <div class="section-head">
+            <div class="section-number">07 / ПРАВИЛА</div>
+
+            <div>
+                <h2 class="section-title">
+                    Пять правил работы с ИИ
+                </h2>
+
+                <p class="section-intro">
+                    Если запомнить только несколько вещей,
+                    пусть это будут эти пять.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="rules">
+
+            <article class="rule">
+
+                <div class="rule-number">01</div>
+
+                <strong>
+                    Сначала прочитай текст сам.
+                </strong>
+
+                <p>
+                    Нейросеть не должна заменять первое самостоятельное
+                    чтение и понимание исходного материала.
+                </p>
+
+            </article>
+
+
+            <article class="rule">
+
+                <div class="rule-number">02</div>
+
+                <strong>
+                    Формулируй конкретный запрос.
+                </strong>
+
+                <p>
+                    Чем точнее задача, тем проще понять,
+                    что именно ответил ИИ.
+                </p>
+
+            </article>
+
+
+            <article class="rule">
+
+                <div class="rule-number">03</div>
+
+                <strong>
+                    Проверяй каждый важный вывод.
+                </strong>
+
+                <p>
+                    Особенно проблемы, позицию автора,
+                    примеры и фактические сведения.
+                </p>
+
+            </article>
+
+
+            <article class="rule">
+
+                <div class="rule-number">04</div>
+
+                <strong>
+                    Не копируй готовый ответ.
+                </strong>
+
+                <p>
+                    Используй ИИ для анализа,
+                    а окончательное решение принимай сам.
+                </p>
+
+            </article>
+
+
+            <article class="rule">
+
+                <div class="rule-number">05</div>
+
+                <strong>
+                    Разбирай свои ошибки.
+                </strong>
+
+                <p>
+                    Ценность проверки не в исправленном предложении,
+                    а в понимании того, почему была ошибка.
+                </p>
+
+            </article>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- =========================
+     FINAL
+========================= -->
+
+<section class="final">
+    <div class="container">
+
+        <div class="final-box">
+
+            <h2>
+                ИИ нашёл → я проверил → я понял → я исправил
+            </h2>
+
+            <p>
+                Именно такая последовательность превращает нейросеть
+                из генератора готовых ответов в инструмент подготовки.
+            </p>
+
+            <div class="final-formula">
+                <span>ИИ</span> помогает думать.
+                <span>Решение</span> остаётся за тобой.
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="container footer-inner">
+
+        <div>
+            ИИ + ЕГЭ · практический гид
+        </div>
+
+        <div>
+            Основа требований:
+            <a
+                class="fipi-link"
+                href="https://fipi.ru/ege"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                материалы ФИПИ
+            </a>
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+    function copyPrompt(button) {
+
+        const box = button.closest(".prompt-box");
+        const prompt = box.querySelector(".prompt").innerText;
+
+        navigator.clipboard.writeText(prompt).then(() => {
+
+            const oldText = button.innerText;
+
+            button.innerText = "Скопировано ✓";
+
+            setTimeout(() => {
+                button.innerText = oldText;
+            }, 1600);
+
+        }).catch(() => {
+
+            const textArea = document.createElement("textarea");
+
+            textArea.value = prompt;
+
+            document.body.appendChild(textArea);
+
+            textArea.select();
+
+            document.execCommand("copy");
+
+            textArea.remove();
+
+            const oldText = button.innerText;
+
+            button.innerText = "Скопировано ✓";
+
+            setTimeout(() => {
+                button.innerText = oldText;
+            }, 1600);
+
+        });
+    }
+
+
+    // Плавная прокрутка для внутренних ссылок
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+
+        link.addEventListener("click", function (event) {
+
+            const target = document.querySelector(this.getAttribute("href"));
+
+            if (!target) return;
+
+            event.preventDefault();
+
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        });
+
+    });
+
+</script>
+
+</body>
+</html>
