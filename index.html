@@ -1,408 +1,218 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ИИ + ЕГЭ — подготовка к сочинению</title>
-
+<meta name="description" content="Практический гид по подготовке к сочинению ЕГЭ по русскому языку (задание 27) с помощью ИИ: ИИ проверяет, а не пишет за тебя.">
 <style>
-:root {
-  --bg: #f6f2ea;
-  --ink: #2b2a26;
-  --mute: #6d675c;
-  --acc: #a85a46;
-  --card: #efe6d8;
-  --line: #d9cdb9;
-}
-
-* { box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font: 18px/1.65 Georgia, serif;
-}
-
-header {
-  position: sticky;
-  top: 0;
-  background: var(--bg);
-  border-bottom: 1px solid var(--line);
-  z-index: 5;
-}
-
-nav {
-  max-width: 980px;
-  margin: auto;
-  padding: 14px 20px;
-  display: flex;
-  gap: 18px;
-  overflow-x: auto;
-  white-space: nowrap;
-  font: 15px Arial, sans-serif;
-}
-
-nav b { color: var(--acc); }
-
-nav a {
-  color: var(--ink);
-  text-decoration: none;
-}
-
-main {
-  max-width: 760px;
-  margin: auto;
-  padding: 20px 20px 60px;
-}
-
-section { padding: 50px 0 10px; }
-
-h1 {
-  font-size: clamp(50px, 12vw, 100px);
-  line-height: 1;
-  color: var(--acc);
-}
-
-h2 { font-size: 32px; }
-
-h3 { font-size: 21px; }
-
-.card {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 20px;
-  margin: 16px 0;
-}
-
-.lead { font-size: 21px; }
-
-.mute {
-  color: var(--mute);
-  font: 15px/1.5 Arial, sans-serif;
-}
-
-.chain {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 25px 0;
-  font: 15px Arial, sans-serif;
-}
-
-.chain span {
-  background: var(--card);
-  padding: 8px 12px;
-  border-radius: 8px;
-}
-
-button {
-  padding: 11px 17px;
-  border: 1px solid var(--acc);
-  border-radius: 9px;
-  background: var(--acc);
-  color: white;
-  cursor: pointer;
-  font-size: 15px;
-}
-
-button.ghost {
-  background: transparent;
-  color: var(--acc);
-}
-
-button:disabled {
-  opacity: .4;
-}
-
-textarea {
-  width: 100%;
-  min-height: 120px;
-  padding: 12px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--bg);
-  color: var(--ink);
-  font: 16px Georgia, serif;
-}
-
-.text {
-  max-height: 300px;
-  overflow: auto;
-  padding: 16px;
-  background: var(--card);
-  border-radius: 12px;
-  font-size: 16px;
-}
-
-pre {
-  white-space: pre-wrap;
-  padding: 14px;
-  background: var(--bg);
-  border: 1px dashed var(--acc);
-  border-radius: 10px;
-  font: 15px/1.5 Arial, sans-serif;
-}
-
-.hide { display: none; }
-
-label.chk {
-  display: flex;
-  gap: 10px;
-  margin: 12px 0;
-  font: 16px Arial, sans-serif;
-}
-
-footer {
-  text-align: center;
-  padding: 40px 20px;
-  border-top: 1px solid var(--line);
-}
-
-footer p { font-size: 25px; }
-
-ol.steps {
-  list-style: none;
-  padding: 0;
-  counter-reset: step;
-}
-
-ol.steps li {
-  counter-increment: step;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--line);
-}
-
-ol.steps li::before {
-  content: counter(step);
-  background: var(--acc);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 50%;
-  margin-right: 12px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font: 15px Arial, sans-serif;
-}
-
-td {
-  padding: 12px 8px;
-  border-bottom: 1px solid var(--line);
-}
-
-td:first-child {
-  color: var(--acc);
-  font-weight: bold;
-}
-
-.good { color: green; }
-.badc { color: red; }
-
-.res { padding: 0; }
-.res li { margin: 10px 0; list-style: none; }
+:root{--bg:#f6f2ea;--ink:#2b2a26;--mute:#6d675c;--acc:#a85a46;--card:#efe6d8;--line:#d9cdb9;--ok:#3f7a52;--bad:#b23b3b;--serif:Georgia,Cambria,"Times New Roman",serif;--sans:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+@media(prefers-color-scheme:dark){:root{--bg:#1f1d1a;--ink:#efe9dd;--mute:#aaa293;--acc:#e08b73;--card:#2a2723;--line:#3e3a33;--ok:#7bc496;--bad:#ef8a8a}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.65 var(--serif)}
+a{color:var(--acc)}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav{max-width:980px;margin:auto;padding:12px 20px;display:flex;gap:18px;align-items:center;overflow-x:auto;white-space:nowrap;font:15px var(--sans)}
+nav b{font:700 18px var(--serif);color:var(--acc);margin-right:8px}
+nav a{color:var(--ink);text-decoration:none}
+nav a:hover{color:var(--acc)}
+main{max-width:760px;margin:auto;padding:0 20px 60px}
+section{padding:56px 0 8px}
+h1{font:700 clamp(54px,12vw,104px)/.95 var(--serif);margin:0;color:var(--acc);letter-spacing:-.03em}
+h2{font:700 clamp(26px,5vw,36px)/1.2 var(--serif);margin:0 0 14px}
+h3{font:700 20px var(--serif);margin:0 0 6px}
+p{margin:0 0 14px}
+.lead{font-size:21px}
+.hero{padding-top:64px}
+.chain{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:26px 0 0;font:15px var(--sans)}
+.chain span{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 12px}
+.chain i{color:var(--acc);font-style:normal}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:14px 0}
+.mute{color:var(--mute);font:15px/1.5 var(--sans)}
+ol.steps{list-style:none;padding:0;margin:0;counter-reset:s}
+ol.steps li{counter-increment:s;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line)}
+ol.steps li::before{content:counter(s);flex:0 0 28px;height:28px;border-radius:50%;background:var(--acc);color:var(--bg);font:700 14px/28px var(--sans);text-align:center}
+ol.steps em{margin-left:auto;font:13px var(--sans);color:var(--mute);font-style:normal;text-align:right}
+.facts{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+.facts div{flex:1 1 150px;border-left:3px solid var(--acc);padding-left:12px;font:15px/1.4 var(--sans)}
+.facts b{display:block;font:700 26px var(--serif)}
+.text{max-height:260px;overflow:auto;padding:16px 18px;background:var(--card);border:1px solid var(--line);border-radius:12px;font-size:16px;line-height:1.6}
+.text p{margin:0 0 10px}
+textarea{width:100%;min-height:120px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:16px/1.5 var(--serif);resize:vertical}
+button{font:600 15px var(--sans);padding:10px 16px;border-radius:10px;border:1px solid var(--acc);background:var(--acc);color:var(--bg);cursor:pointer}
+button.ghost{background:transparent;color:var(--acc)}
+button:disabled{opacity:.45;cursor:not-allowed}
+pre{white-space:pre-wrap;margin:10px 0;padding:12px 14px;background:var(--bg);border:1px dashed var(--acc);border-radius:10px;font:15px/1.55 var(--sans)}
+.step-tag{display:inline-block;font:600 14px var(--sans);color:var(--acc);margin-bottom:4px}
+.hide{display:none}
+label.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;font:16px/1.45 var(--sans);cursor:pointer}
+label.chk input{margin-top:4px;width:18px;height:18px;accent-color:var(--acc);flex:none}
+.res li{margin:6px 0;font:15px/1.45 var(--sans);list-style:none}
+.res{padding:0}
+.good{color:var(--ok)}.badc{color:var(--bad)}
+table{width:100%;border-collapse:collapse;font:15px/1.45 var(--sans)}
+td,th{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+td:first-child{font-weight:700;color:var(--acc);white-space:nowrap;width:1%}
+ul.plain{padding-left:20px}ul.plain li{margin:8px 0}
+.prog{font:600 15px var(--sans);color:var(--acc)}
+footer{border-top:1px solid var(--line);padding:40px 20px;text-align:center}
+footer p{font:700 clamp(20px,4vw,28px)/1.3 var(--serif);margin:0 0 8px}
 </style>
 </head>
-
 <body>
-
-<header>
-<nav>
-<b>ИИ + ЕГЭ</b>
-<a href="#task">Задание 27</a>
-<a href="#algo">Алгоритм</a>
-<a href="#practice">Практика</a>
-<a href="#stages">Этапы</a>
-<a href="#criteria">Критерии</a>
-<a href="#errors">Ошибки ИИ</a>
-<a href="#rules">Правила</a>
-</nav>
-</header>
-
+<header><nav><a href="#top"><b>ИИ + ЕГЭ</b></a><a href="#task">Задание 27</a><a href="#algo">Алгоритм</a><a href="#practice">Практика</a><a href="#stages">Этапы</a><a href="#criteria">Критерии</a><a href="#errors">Ошибки ИИ</a><a href="#rules">Правила</a></nav></header>
 <main>
 
-<section id="top">
+<section class="hero" id="top">
 <h1>ИИ + ЕГЭ</h1>
-
-<p class="lead">
-Практический гид по подготовке к сочинению по русскому языку.
-Здесь ИИ не пишет за тебя: он проверяет то, что ты уже придумал(а) сам(а).
-</p>
-
-<div class="chain">
-<span>Текст</span> →
-<span>Моя попытка</span> →
-<span>ИИ проверяет</span> →
-<span>Сверяю с текстом</span> →
-<span>Решаю сам(а)</span>
-</div>
-
-<div class="card">
-<h3>Главное правило</h3>
-<p>Сначала думаешь ты, потом спрашиваешь ИИ. Если запрос не содержит твоей работы, он учит списывать, а не думать.</p>
-</div>
+<p class="lead" style="margin-top:22px">Практический гид по подготовке к сочинению по русскому языку. Здесь ИИ не пишет за тебя: он проверяет то, что ты уже придумал(а) сам(а).</p>
+<div class="chain"><span>Читаю текст</span><i>→</i><span>Пишу свой ответ</span><i>→</i><span>ИИ помогает проверить</span><i>→</i><span>Сверяю с исходным текстом</span><i>→</i><span>Сам(а) решаю, что исправить</span></div>
+<div class="card" style="margin-top:28px"><h3>Главное правило</h3><p style="margin:0">Сначала думаешь ты, потом спрашиваешь ИИ. Если запрос не содержит твоей работы, он учит списывать, а не думать.</p></div>
 </section>
 
 <section id="task">
 <h2>Как устроено задание 27</h2>
-
-<p>Это сочинение по исходному тексту. В нём нужно показать, что ты понял(а) проблему, позицию автора и то, как автор раскрывает мысль.</p>
-
-<ul>
-<li>Сформулировать проблему текста.</li>
-<li>Определить позицию автора.</li>
-<li>Привести два примера-иллюстрации.</li>
+<p>Это сочинение по исходному тексту. В нём нужно показать, что ты понял(а) позицию автора по проблеме из задания и то, как автор раскрывает мысль.</p>
+<ul class="plain">
+<li>Понять проблему, которая уже названа в задании (формулировать её самому не нужно).</li>
+<li>Определить позицию автора по этой проблеме.</li>
+<li>Привести два примера-иллюстрации из текста, важных для понимания позиции автора, и пояснить каждый.</li>
 <li>Объяснить смысловую связь между примерами.</li>
-<li>Высказать своё отношение и обосновать его.</li>
+<li>Высказать своё отношение к позиции автора и обосновать его примером-аргументом из жизни, чтения или истории, не повторяя суждений автора. Примеры из аниме, манги, комиксов, фанфиков и компьютерных игр не засчитываются.</li>
 </ul>
-
-<div class="card">
-<b>150+ слов</b> — минимальный объём сочинения.
-<br>
-<b>22 балла</b> — максимум первичных баллов.
-</div>
+<p class="mute">Работа без опоры на прочитанный текст не оценивается. Если сочинение — полный пересказ или переписанный текст без комментариев, это 0 баллов.</p>
+<div class="facts"><div><b>150</b>слов минимум: меньше 150 — 0 баллов за всё сочинение</div><div><b>22</b>первичных балла максимум</div><div><b>10</b>критериев оценивания</div></div>
 </section>
 
 <section id="algo">
 <h2>Работай по алгоритму</h2>
-
+<p>В каждом шаге сначала работаешь ты. ИИ подключается только там, где отмечено, и только как проверяющий.</p>
 <ol class="steps">
-<li>Прочитать текст</li>
-<li>Понять проблему</li>
-<li>Определить позицию автора</li>
-<li>Найти два примера</li>
-<li>Объяснить примеры</li>
-<li>Найти связь между примерами</li>
-<li>Сформулировать своё отношение</li>
-<li>Подобрать аргумент</li>
-<li>Проверить сочинение</li>
+<li>Прочитать текст<em>сам(а)</em></li>
+<li>Понять проблему из задания<em>сам(а)</em></li>
+<li>Определить позицию автора<em>сам(а), затем проверка ИИ</em></li>
+<li>Найти два примера<em>сам(а), затем проверка ИИ</em></li>
+<li>Объяснить примеры<em>сам(а)</em></li>
+<li>Найти связь между примерами<em>сам(а), затем проверка ИИ</em></li>
+<li>Сформулировать своё отношение<em>сам(а)</em></li>
+<li>Подобрать аргумент<em>сам(а), ИИ ищет слабые места</em></li>
+<li>Проверить сочинение<em>ИИ как редактор</em></li>
 </ol>
 </section>
 
 <section id="practice">
 <h2>Практика: три шага</h2>
-
 <p class="mute">Прочитай текст. Он нужен для всех заданий ниже.</p>
-
 <div class="text">
-<p>Были у Татьяны Егоровны старинные и драгоценные каминные часы малого размера, великой красоты, с боем трёх колокольчиков, с недельным заводом. Колокольчики отбивали час, полчаса и каждую четверть. Звук колокольчика был чист, нежен и словно бы доносился издалека.</p>
-
-<p>Двадцать лет назад с часами случилось вот что: стали они отбивать ровно на три часа меньше, чем полагается. Однако половины и четверти по-прежнему правильно.</p>
-
-<p>Часы были отданы в починку. Из починки они вернулись с правильным боем, но через неделю опять сбились. Бабушка привыкла к этому и больше не отдавала их в ремонт.</p>
-
+<p>Были у Татьяны Егоровны старинные и драгоценные каминные часы малого размера, великой красоты, с боем трёх колокольчиков, с недельным заводом (утром в воскресенье). Колокольчики отбивали час, полчаса и каждую четверть, и всё по-разному. Звук колокольчика был чист, нежен и словно бы доносился издалека. Как это было устроено — знал только мастер, которого, конечно, давно не было на свете, потому что часам было больше ста лет. И все сто лет часы шли непрерывно, не отставая, не спеша, не уставая отбивать час, половину и четверти.</p>
+<p>Двадцать лет назад с часами случилось вот что: стали они отбивать ровно на три часа меньше, чем полагается. Вместо пяти — два, вместо двух — одиннадцать, вместо одиннадцати — восемь и так далее. Однако половины и четверти по-прежнему правильно. Так, бьют они три с четвертью — значит, четверть седьмого, нужно только прибавить три.</p>
+<p>И вот тогда, двадцать лет назад, часы были отданы в починку — единственный в их жизни раз. Из починки часы вернулись с правильным боем: бьют полдень — значит, полдень и есть. Неделю шли и били правильно, а через неделю вдруг сразу сбились и в пять часов пробили только раза два. Так пошло и дальше, и больше бабушка их в починку не отдавала.</p>
+<p>И действительно, какой смысл в этой починке? Во-первых, часовщик может их испортить; часы старые, кто делал их — неизвестно. А потом — прошло двадцать лет, и бабушка к ним привыкла: бьют пять — значит, восемь, а восемь — значит, одиннадцать. Никакого труда нет накинуть три, тем более что стрелки показывают правильно, для всякого понятно.</p>
 <p>Но однажды внук Ванечка взял часы в ремонт.</p>
-
-<p>Бабушка две ночи спала не особенно хорошо. Привыкла, что бьют в старушечьей ночи далёкие звонкие колокольчики, — а вот их нет.</p>
-
-<p>На третий день Ванечка вернул часы. И вдруг зазвенел колокольчик, и часы забили правильно. Бабушка грустно улыбнулась и отвернулась.</p>
-
-<p>«Главное — Ванечке приятно», — думала бабушка.</p>
-
+<p>Бабушка Татьяна Егоровна две ночи спала не особенно хорошо. И не о чем было беспокоиться, и всё же было как-то беспокойно. Очень было молчаливо. Привыкла, что бьют в старушечьей ночи далёкие звонкие колокольчики, — а вот их нет. Были разные думы, во вторую ночь ей даже приснилось, что большой и толстый часовщик ударил по её часам тяжёлым молотом и — дзынь! — часы рассыпались. Старалась утешить себя:</p>
+<p>— Ну, что ж, пускай! Ванечке это приятно.</p>
+<p>А на третий день Ванечка забежал на минуту (очень торопился) и занёс часы:</p>
+<p>— Ну, бабушка, теперь всё хорошо. Сейчас я не могу, а перед отъездом забегу к вам посидеть подольше.</p>
+<p>Прошумел и исчез.</p>
+<p>Стоят часы на прежнем месте, точно и не уходили. Стрелки идут, подходят к одиннадцати с половиной. Бабушка бродит по комнате, ищет последнюю соринку, чтобы смести её тряпочкой. Соринки нет, а глаза бабушки косятся на минутную стрелку, а ухо ждёт.</p>
+<p>И вдруг зазвенел колокольчик и часы забили. А как дошли они до восьми ударов и стали бить дальше, все одиннадцать, бабушка грустно улыбнулась и отвернулась. И рабочий её столик тоже осунулся и стоял теперь понуро.</p>
+<p>Так пошла жизнь дальше, и часы били теперь правильно. Бьют пять — значит, пять. А в два часа бьют ровно два. Конечно, удобно.</p>
+<p>«Главное — Ванечке приятно, — думала бабушка. — Вот уедет в свои путешествия, может быть, опять полетит в какую страну».</p>
+<p>Но, конечно, путала иногда, особенно под утро, когда сон чуток. Бьют часы пять, — ой, проспала! — а оказывается, и действительно всего-навсего пять часов.</p>
 <p class="mute">(По М. А. Осоргину)</p>
 </div>
 
 <div class="card">
-<span class="mute">Шаг 1. Только ты</span>
+<span class="step-tag">Шаг 1. Только ты</span>
 <h3>Что значат для пожилых людей старинные вещи?</h3>
-
-<p>Напиши свою формулировку позиции автора.</p>
-
-<textarea id="pos" placeholder="Автор считает, что..."></textarea>
-
-<p id="hint" class="mute">Нужно минимум 40 символов.</p>
-
+<p>Ответь на вопрос и сформулируй позицию автора своими словами. Ответ можно сравнить с образцом, когда напишешь хотя бы пару предложений.</p>
+<textarea id="pos" aria-label="Позиция автора своими словами" placeholder="Автор считает, что…"></textarea>
+<p class="mute" id="posHint">Нужно минимум 40 символов.</p>
 <button id="cmp" disabled>Сравнить с образцом</button>
-
 <div id="model" class="hide">
-<h3>Образец для сравнения</h3>
-
-<p>Автор считает, что для пожилого человека старинная вещь ценна не только своей практичностью, но и привычкой, памятью и ощущением родного порядка жизни.</p>
-
-<p>Бабушка привыкла к старым часам, поэтому после ремонта ей было непривычно. Однако она принимает перемену ради внука.</p>
+<h3 style="margin-top:18px">Образец для сравнения</h3>
+<p>Автор считает, что для пожилого человека старинная вещь ценна не точностью и исправностью, а привычкой, памятью и ощущением родного, привычного порядка жизни. Бабушка двадцать лет жила с часами, которые били «неправильно», и спокойно прибавляла три часа. Когда внук починил часы, она «грустно улыбнулась и отвернулась». Но ради внука она принимает перемену: «Главное — Ванечке приятно».</p>
+<p><b>Сравни со своим ответом:</b></p>
+<ul class="plain" style="font:16px var(--sans)"><li>Что совпало?</li><li>Что ты упустил(а) или понял(а) иначе?</li><li>Подтверждается ли твой вариант словами из текста?</li></ul>
+<p class="mute">Это не единственно верная формулировка. Главное, чтобы твой вариант опирался на текст.</p>
 </div>
 </div>
 
-<div class="card hide" id="step2">
-<h3>Шаг 2. Проверка с помощью ИИ</h3>
-<p>Скопируй запрос и отправь его ИИ.</p>
-
-<pre id="prompt"></pre>
-
-<button class="ghost" onclick="copyPrompt()">Скопировать запрос</button>
+<div class="card" id="step2">
+<span class="step-tag">Шаг 2. Теперь ИИ проверяет, а не отвечает</span>
+<p class="mute" id="lock2">Откроется после шага 1: запиши свой ответ и нажми «Сравнить с образцом».</p>
+<div id="step2body" class="hide">
+<p>Запрос уже содержит твою формулировку. Скопируй его, вставь текст в отмеченное место и отправь любому ИИ.</p>
+<pre id="p2"></pre>
+<button class="ghost" data-copy="p2">Скопировать запрос</button>
+<p style="margin-top:14px"><b>Проверь ответ ИИ:</b></p>
+<label class="chk"><input type="checkbox">Каждое его утверждение подтверждается текстом.</label>
+<label class="chk"><input type="checkbox">Он не приписал автору мысль, которой нет в тексте.</label>
+<label class="chk"><input type="checkbox">Я могу объяснить вывод без подсказки, не глядя в ответ ИИ.</label>
+</div>
 </div>
 
 <div class="card">
-<h3>Шаг 3. Найди ошибки ИИ</h3>
-<p>В двух утверждениях есть ошибки. Отметь их.</p>
-
+<span class="step-tag">Шаг 3. Найди ошибки ИИ</span>
+<h3>Ответ ИИ про эту историю</h3>
+<p>ИИ звучит уверенно, но может ошибаться, поэтому его ответы всегда сверяют с текстом. В этом ответе спрятаны две ошибки. Отметь утверждения, которые не совпадают с текстом.</p>
 <div id="quiz"></div>
-
-<button id="check">Проверить</button>
-
-<ul id="result" class="res"></ul>
+<button id="chk">Проверить</button>
+<ul class="res" id="res" aria-live="polite"></ul>
 </div>
 </section>
 
 <section id="stages">
 <h2>Пять этапов работы</h2>
-<p>Сначала выполни задание самостоятельно, затем используй ИИ для проверки.</p>
-
-<p id="progress" class="mute">Пройдено этапов: 0 из 5</p>
-
-<div id="stagesList"></div>
+<p>В каждом этапе сначала выполни задание сам(а). Потом скопируй запрос, подставь свою работу вместо слов в квадратных скобках и отправь ИИ.</p>
+<p class="prog" id="prog">Пройдено этапов: 0 из 5</p>
+<div id="stageList"></div>
 </section>
 
 <section id="criteria">
 <h2>Что нужно контролировать</h2>
-
+<p>ИИ может подсказать проблему, но окончательное решение всегда нужно принимать самостоятельно.</p>
 <table>
-<tr><td>К1</td><td>Отражение позиции автора.</td></tr>
-<tr><td>К2</td><td>Комментарий к позиции автора.</td></tr>
-<tr><td>К3</td><td>Собственное отношение к позиции автора.</td></tr>
-<tr><td>К4</td><td>Фактическая точность.</td></tr>
-<tr><td>К5</td><td>Логичность речи.</td></tr>
-<tr><td>К6</td><td>Соблюдение этических норм.</td></tr>
-<tr><td>К7</td><td>Орфография.</td></tr>
-<tr><td>К8</td><td>Пунктуация.</td></tr>
-<tr><td>К9</td><td>Грамматика.</td></tr>
-<tr><td>К10</td><td>Речевые нормы.</td></tr>
+<tr><td>К1</td><td><b>Позиция автора</b><br>1 балл. Верно сформулирована позиция автора. Если здесь 0, то К2 и К3 тоже будут 0.</td></tr>
+<tr><td>К2</td><td><b>Комментарий к позиции</b><br>До 3 баллов. Два примера-иллюстрации из текста, пояснения к ним и указание смысловой связи между примерами.</td></tr>
+<tr><td>К3</td><td><b>Своё отношение</b><br>До 2 баллов. Своё отношение к позиции автора и его обоснование аргументом (не из комиксов, аниме, игр и т. п.).</td></tr>
+<tr><td>К4</td><td><b>Фактическая точность</b><br>1 балл. Нет фактических ошибок.</td></tr>
+<tr><td>К5</td><td><b>Логичность речи</b><br>До 2 баллов. Нет логических ошибок — 2, одна или две — 1, три и больше — 0.</td></tr>
+<tr><td>К6</td><td><b>Этические нормы</b><br>1 балл. Нет оскорблений, грубости, неуважения к автору.</td></tr>
+<tr><td>К7</td><td><b>Орфография</b><br>До 3 баллов.</td></tr>
+<tr><td>К8</td><td><b>Пунктуация</b><br>До 3 баллов.</td></tr>
+<tr><td>К9</td><td><b>Грамматика</b><br>До 3 баллов.</td></tr>
+<tr><td>К10</td><td><b>Речевые нормы</b><br>До 3 баллов.</td></tr>
 </table>
-
-<p class="mute">Максимум за сочинение — 22 первичных балла. Сверяй критерии с актуальными материалами ФИПИ.</p>
+<p class="mute" style="margin-top:10px">Максимум за сочинение — 22 первичных балла. Работа короче 150 слов оценивается нулём по всем критериям. Пороги ошибок по К7–К10 сверяй с критериями ФИПИ на текущий год.</p>
 </section>
 
 <section id="errors">
 <h2>Где ИИ может подвести</h2>
-
-<ul>
-<li>Придуманная мысль.</li>
-<li>Искажение исходного текста.</li>
-<li>Неверная смысловая связь.</li>
-<li>Лишняя правка.</li>
-<li>Фактическая ошибка.</li>
-<li>Шаблонные фразы вместо анализа.</li>
+<p>Уверенный и гладкий ответ ещё не значит правильный. Вот что проверять.</p>
+<ul class="plain">
+<li><b>Придуманная мысль.</b> ИИ приписывает автору идею, которой в тексте нет.</li>
+<li><b>Искажение текста.</b> Он меняет смысл эпизода, например эмоцию героя.</li>
+<li><b>Неверная связь.</b> Оба примера есть в тексте, но связь между ними определена неправильно.</li>
+<li><b>Лишняя правка.</b> Он «исправляет» фразу, которая была допустима.</li>
+<li><b>Фактическая ошибка.</b> Путает имя, событие или произведение.</li>
+<li><b>Шаблон.</b> Красивые общие фразы вместо анализа именно этого текста.</li>
 </ul>
 </section>
 
 <section id="rules">
 <h2>Шесть правил</h2>
-
 <ol class="steps">
 <li>Сначала прочитай и продумай всё сам(а).</li>
 <li>Отправляй ИИ свою работу, а не просьбу «напиши».</li>
 <li>Проверяй каждый важный вывод по тексту.</li>
-<li>Не копируй формулировки ИИ.</li>
-<li>Объясняй вывод своими словами.</li>
-<li>Тренируйся так, чтобы справиться без ИИ.</li>
+<li>Не копируй формулировки ИИ: бери идею, записывай своими словами.</li>
+<li>Закрой ответ ИИ и объясни вывод вслух. Не получилось — вернись к тексту.</li>
+<li>Помни: на экзамене ИИ не будет. Тренируйся так, чтобы справиться без него.</li>
 </ol>
 </section>
-
 </main>
 
 <footer>
@@ -411,118 +221,83 @@ td:first-child {
 </footer>
 
 <script>
-const pos = document.getElementById('pos');
-const cmp = document.getElementById('cmp');
-
-pos.addEventListener('input', () => {
-  const n = pos.value.trim().length;
-  cmp.disabled = n < 40;
-  document.getElementById('hint').textContent =
-    n < 40 ? 'Нужно минимум 40 символов. Сейчас: ' + n : 'Можно сравнивать!';
-});
-
-cmp.addEventListener('click', () => {
-  document.getElementById('model').classList.remove('hide');
-  document.getElementById('step2').classList.remove('hide');
-
-  document.getElementById('prompt').textContent =
-    'Вот исходный текст: [ВСТАВЬ ТЕКСТ]\\n\\n' +
-    'Моя формулировка позиции автора: ' + pos.value +
-    '\\n\\nНе пиши готовый ответ. Скажи, что верно, а что не подтверждается текстом. Задай мне два наводящих вопроса.';
-
-  document.getElementById('model').scrollIntoView({behavior:'smooth'});
-});
-
-function copyPrompt() {
-  const text = document.getElementById('prompt').textContent;
-  navigator.clipboard.writeText(text).then(() => alert('Запрос скопирован!'));
+var $=function(s){return document.querySelector(s)};
+function copyText(t,b){
+  var o=b.textContent;
+  function done(){b.textContent='Скопировано';setTimeout(function(){b.textContent=o},1500)}
+  function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove();done()}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,fb)}else{fb()}
 }
-
-const claims = [
-  {t:'Бабушка двадцать лет жила с часами, которые били на три часа меньше.',bad:false},
-  {t:'После ремонта часы стали бить правильно.',bad:false},
-  {t:'Бабушка очень обрадовалась починке и сразу поблагодарила внука.',bad:true},
-  {t:'Часы подарил бабушке её муж в молодости.',bad:true},
-  {t:'Бабушка принимает перемену ради внука.',bad:false}
-];
-
-const quiz = document.getElementById('quiz');
-
-claims.forEach((c,i) => {
-  const label = document.createElement('label');
-  label.className = 'chk';
-  const input = document.createElement('input');
-  input.type = 'checkbox';
-  input.dataset.index = i;
-  label.appendChild(input);
-  label.appendChild(document.createTextNode(c.t));
-  quiz.appendChild(label);
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-copy]');
+  if(b){copyText(document.getElementById(b.dataset.copy).textContent,b)}
 });
 
-document.getElementById('check').addEventListener('click', () => {
-  const result = document.getElementById('result');
-  result.innerHTML = '';
-  let score = 0;
-
-  claims.forEach((c,i) => {
-    const checked = quiz.querySelector('[data-index="'+i+'"]').checked;
-    if (c.bad && checked) score++;
-    if (c.bad || checked) {
-      const li = document.createElement('li');
-      li.className = (c.bad === checked) ? 'good' : 'badc';
-      li.textContent = c.bad
-        ? (checked ? 'Верно! Это ошибка в ответе ИИ.' : 'Ты пропустил(а) ошибку.')
-        : (checked ? 'Здесь ошибки нет. Утверждение верное.' : '');
-      if (li.textContent) result.appendChild(li);
-    }
-  });
-
-  const total = document.createElement('li');
-  total.textContent = 'Найдено ошибок: ' + score + ' из 2.';
-  result.prepend(total);
+/* Шаг 1 */
+var pos=$('#pos'),cmp=$('#cmp');
+pos.addEventListener('input',function(){
+  var n=pos.value.trim().length;
+  cmp.disabled=n<40;
+  if(!$('#step2body').classList.contains('hide'))buildP2();
+  $('#posHint').textContent=n<40?'Нужно минимум 40 символов. Сейчас: '+n+'.':'Можно сравнивать.';
+});
+function buildP2(){
+  $('#p2').textContent='Вот исходный текст: [ВСТАВЬ ТЕКСТ]\n\nПроблема из задания: «Что значат для пожилых людей старинные вещи?»\n\nВот моя формулировка позиции автора: '+pos.value.trim()+'\n\nНе пиши готовый ответ. Скажи, что в моей формулировке верно, а что не подтверждается текстом, и задай мне два наводящих вопроса. Опирайся только на исходный текст и не добавляй того, чего в нём нет.';
+}
+cmp.addEventListener('click',function(){
+  $('#model').classList.remove('hide');
+  $('#step2body').classList.remove('hide');$('#lock2').classList.add('hide');
+  buildP2();
+  $('#model').scrollIntoView({behavior:'smooth',block:'start'});
 });
 
-const stages = [
-  ['Проблема и позиция автора','Запиши проблему вопросом, а позицию автора одним предложением.'],
-  ['Примеры-иллюстрации','Выбери два примера и объясни, какую мысль раскрывает каждый.'],
-  ['Смысловая связь','Объясни, как второй пример связан с первым.'],
-  ['Собственное отношение','Сформулируй своё отношение и подбери аргумент.'],
-  ['Проверка сочинения','Перечитай сочинение и отметь места, где сомневаешься.']
+/* Шаг 3 */
+var claims=[
+ {t:'Бабушка двадцать лет жила с часами, которые били на три часа меньше, и привыкла прибавлять три.',bad:false},
+ {t:'После ремонта внука часы стали бить правильно.',bad:false},
+ {t:'Бабушка очень обрадовалась починке и сразу поблагодарила внука.',bad:true,why:'Искажение. В тексте она «грустно улыбнулась и отвернулась».'},
+ {t:'Часы дороги бабушке, потому что их подарил ей муж в молодости.',bad:true,why:'Придуманный факт. О том, кто подарил часы, в тексте ничего нет.'},
+ {t:'Бабушка принимает перемену ради внука: «Главное — Ванечке приятно».',bad:false}
 ];
-
-const list = document.getElementById('stagesList');
-
-stages.forEach((s,i) => {
-  const card = document.createElement('div');
-  card.className = 'card';
-
-  const title = document.createElement('h3');
-  title.textContent = 'Этап ' + (i+1) + '. ' + s[0];
-
-  const desc = document.createElement('p');
-  desc.textContent = s[1];
-
-  const check = document.createElement('label');
-  check.className = 'chk';
-
-  const input = document.createElement('input');
-  input.type = 'checkbox';
-
-  check.appendChild(input);
-  check.appendChild(document.createTextNode('Я выполнил(а) этот этап самостоятельно.'));
-
-  card.appendChild(title);
-  card.appendChild(desc);
-  card.appendChild(check);
-  list.appendChild(card);
-
-  input.addEventListener('change', () => {
-    const done = list.querySelectorAll('input:checked').length;
-    document.getElementById('progress').textContent =
-      'Пройдено этапов: ' + done + ' из 5';
+var q=$('#quiz');
+claims.forEach(function(c,i){
+  var l=document.createElement('label');l.className='chk';
+  var x=document.createElement('input');x.type='checkbox';x.dataset.i=i;
+  l.appendChild(x);l.appendChild(document.createTextNode(c.t));q.appendChild(l);
+});
+$('#chk').addEventListener('click',function(){
+  var r=$('#res');r.innerHTML='';var right=0;
+  claims.forEach(function(c,i){
+    var on=q.querySelector('[data-i="'+i+'"]').checked;
+    var li=document.createElement('li');
+    if(c.bad&&on){right++;li.className='good';li.textContent='Верно, ошибка найдена: '+c.why}
+    else if(c.bad&&!on){li.className='badc';li.textContent='Пропущена ошибка. '+c.why}
+    else if(!c.bad&&on){li.className='badc';li.textContent='Здесь ошибки нет: утверждение «'+c.t+'» подтверждается текстом.'}
+    if(li.textContent)r.appendChild(li);
   });
+  var s=document.createElement('li');s.textContent='Найдено ошибок: '+right+' из 2.';s.style.fontWeight='700';r.insertBefore(s,r.firstChild);
+});
+
+/* Этапы */
+var stages=[
+ ['Позиция автора','Проблема названа в задании. Ответь на неё одним предложением: что думает автор?','Вот исходный текст: [ВСТАВЬ ТЕКСТ]\nВот проблема из задания: [ВСТАВЬ ПРОБЛЕМУ]\nВот моя формулировка позиции автора: [ВСТАВЬ СВОЮ ФОРМУЛИРОВКУ]\n\nНе пиши готовый ответ. Скажи, что верно, что не подтверждается текстом, и задай мне два наводящих вопроса. Опирайся только на исходный текст.'],
+ ['Примеры-иллюстрации','Выбери два примера из текста и запиши, какую мысль раскрывает каждый.','Исходный текст: [ВСТАВЬ ТЕКСТ]\nЯ выбрал(а) два примера: 1) [ПРИМЕР 1] 2) [ПРИМЕР 2]\n\nПроверь, есть ли они в тексте и помогают ли раскрыть проблему. Не предлагай свои примеры, пока я не отвечу на твои вопросы.'],
+ ['Смысловая связь','Объясни своими словами, как второй пример связан с первым.','Мои примеры: [ВСТАВЬ ПРИМЕРЫ]\nМоё объяснение связи между ними: [ВСТАВЬ СВОЁ ОБЪЯСНЕНИЕ]\n\nНе пересказывай примеры. Скажи, верно ли определён тип связи (дополнение, уточнение, сопоставление, аналогия, причина и следствие, противопоставление) и чего не хватает объяснению.'],
+ ['Собственное отношение','Сформулируй своё отношение и подбери пример из жизни, чтения или истории.','Позиция автора: [ВСТАВЬ ПОЗИЦИЮ]\nМоё отношение и обоснование: [ВСТАВЬ СВОЙ ТЕКСТ]\n\nНе придумывай фактов. Укажи слабые места: связано ли обоснование с позицией автора и самостоятельный ли мой пример, а не повтор мысли автора.'],
+ ['Проверка сочинения','Сначала перечитай сочинение сам(а) и отметь места, где сомневаешься.','Вот моё сочинение: [ВСТАВЬ СОЧИНЕНИЕ]\n\nНе переписывай его. Найди места с возможными ошибками (орфография, пунктуация, грамматика, речь). К каждому замечанию объясни причину, а исправление дай только как подсказку. Проверь, выполнены ли требования задания 27.']
+];
+var sl=$('#stageList');
+stages.forEach(function(s,i){
+  var d=document.createElement('div');d.className='card';
+  d.innerHTML='<span class="step-tag">Этап '+(i+1)+'</span><h3></h3><p class="mute"><b>Сначала сам(а):</b> <span class="t"></span></p><pre id="sp'+i+'"></pre><button class="ghost" data-copy="sp'+i+'">Скопировать запрос</button><label class="chk"><input type="checkbox" class="done">Я закрыл(а) ответ ИИ и объяснил(а) вывод своими словами.</label>';
+  d.querySelector('h3').textContent=s[0];
+  d.querySelector('.t').textContent=s[1];
+  d.querySelector('pre').textContent=s[2];
+  sl.appendChild(d);
+});
+sl.addEventListener('change',function(){
+  $('#prog').textContent='Пройдено этапов: '+sl.querySelectorAll('.done:checked').length+' из 5';
 });
 </script>
-
 </body>
 </html>
